@@ -1,2 +1,2 @@
-# todo-app-com-TypeScript
-Todo App com TypeScritp
+# todo-app-with-TypeScript
+Todo App with TypeScritp
