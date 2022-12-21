@@ -3,30 +3,31 @@ import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [todoArr, setTodoArr] = useState(['acordar', 'Comer']);
+  const [newTodo, setNewTodo] = useState('');
+
+  const saveNewTodo = () => {
+    if(!newTodo) {
+      window.alert("Inválido");
+      return;
+    }
+    const upperCased = todoArr.map((el) => el.charAt(0).toUpperCase() + el.slice(1));
+    const newArr = [...upperCased, newTodo.charAt(0).toUpperCase() + newTodo.slice(1)]
+    setTodoArr(newArr);
+  };
 
   return (
     <div className="App">
+      <h1>Todo App!</h1>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <input type="text" name="newTodo" id="newTodo" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
+        <button onClick={ saveNewTodo }>Adicionar Tarefa</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div className='list'>
+        <ul>
+          {todoArr.map((el) => <li>{el}</li>)}
+        </ul>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
