@@ -1,10 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
   const [todoArr, setTodoArr] = useState(['acordar', 'Comer']);
   const [newTodo, setNewTodo] = useState('');
+
+  useEffect(() => {
+    const upperCased = todoArr.map((el) => el.charAt(0).toUpperCase() + el.slice(1));
+    setTodoArr(upperCased);
+  }, [])
+  
 
   const saveNewTodo = () => {
     if(!newTodo) {
@@ -14,6 +19,7 @@ function App() {
     const upperCased = todoArr.map((el) => el.charAt(0).toUpperCase() + el.slice(1));
     const newArr = [...upperCased, newTodo.charAt(0).toUpperCase() + newTodo.slice(1)]
     setTodoArr(newArr);
+    setNewTodo('');
   };
 
   return (
