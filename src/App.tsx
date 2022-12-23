@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -21,9 +21,7 @@ function App() {
     setNewTodo('');
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {
-    console.log(typeof(event));
-        
+  const handleKeyPress = (event: React.KeyboardEvent) => {        
     if (event.key === 'Enter') {
       saveNewTodo()
     }
@@ -45,7 +43,7 @@ function App() {
       </div>
       <div className='list'>
         <ul>
-          {todoArr.map((el) => <li>{el}</li>)}
+          {todoArr.map((el) => <li key={el}>{el}</li>)}
         </ul>
       </div>
     </div>
