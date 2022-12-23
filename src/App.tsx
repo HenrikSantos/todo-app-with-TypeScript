@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import { useState, useEffect } from 'react';
+import './App.css';
 
 function App() {
   const [todoArr, setTodoArr] = useState(['acordar', 'Comer']);
@@ -10,7 +10,6 @@ function App() {
     setTodoArr(upperCased);
   }, [])
   
-
   const saveNewTodo = () => {
     if(!newTodo) {
       window.alert("Inválido");
@@ -22,11 +21,26 @@ function App() {
     setNewTodo('');
   };
 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    console.log(typeof(event));
+        
+    if (event.key === 'Enter') {
+      saveNewTodo()
+    }
+  }
+
   return (
     <div className="App">
       <h1>Todo App!</h1>
       <div>
-        <input type="text" name="newTodo" id="newTodo" value={newTodo} onChange={(e) => setNewTodo(e.target.value)} />
+        <input
+          type="text"
+          onKeyDown={handleKeyPress}
+          name="newTodo"
+          id="newTodo"
+          value={newTodo}
+          onChange={(event) => setNewTodo(event.target.value) }
+        />
         <button onClick={ saveNewTodo }>Adicionar Tarefa</button>
       </div>
       <div className='list'>
