@@ -27,6 +27,10 @@ function App() {
     }
   }
 
+  const deleteTodo = (todoToDelete: string) => {
+    setTodoArr((prev) => prev.filter((el) => el !== todoToDelete));
+  };
+
   return (
     <div className="App">
       <h1>Todo App!</h1>
@@ -43,7 +47,18 @@ function App() {
       </div>
       <div className='list'>
         <ul>
-          {todoArr.map((el) => <li key={el}>{el}</li>)}
+          {
+            todoArr.map((el) => {
+              return(
+                <div key={el}>
+                  <li>{el}</li>
+                  <button type='button' onClick={() => deleteTodo(el)}>
+                    DELETE
+                  </button>
+                </div>
+             )
+            })
+          }
         </ul>
       </div>
     </div>
