@@ -12,11 +12,18 @@ function App() {
   
   const saveNewTodo = () => {
     if(!newTodo) {
-      window.alert("Inválido");
+      window.alert('You need to type something');
       return;
     }
-    const upperCased = todoArr.map((el) => el.charAt(0).toUpperCase() + el.slice(1));
-    const newArr = [...upperCased, newTodo.charAt(0).toUpperCase() + newTodo.slice(1)]
+
+    const upperCasedTodo = newTodo.charAt(0).toUpperCase() + newTodo.slice(1)
+
+    if(todoArr.includes(upperCasedTodo)) {
+      window.alert('You already placed this task!');
+      return;
+    }
+
+    const newArr = [...todoArr, upperCasedTodo]
     setTodoArr(newArr);
     setNewTodo('');
   };
@@ -52,7 +59,7 @@ function App() {
               return(
                 <div key={el}>
                   <li>{el}</li>
-                  <button type='button' onClick={() => deleteTodo(el)}>
+                  <button className='list-button' type='button' onClick={() => deleteTodo(el)}>
                     DELETE
                   </button>
                 </div>
