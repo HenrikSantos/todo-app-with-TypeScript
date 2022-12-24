@@ -4,6 +4,7 @@ import './App.css';
 function App() {
   const [todoArr, setTodoArr] = useState(['acordar', 'Comer']);
   const [newTodo, setNewTodo] = useState('');
+  const [indexTodoToEdit, setIndexTodoToEdit] = useState(-1);
 
   useEffect(() => {
     const upperCased = todoArr.map((el) => el.charAt(0).toUpperCase() + el.slice(1));
@@ -38,19 +39,47 @@ function App() {
     setTodoArr((prev) => prev.filter((el) => el !== todoToDelete));
   };
 
+  const startEditingTodo = (todoToEdit: string) => {
+    setIndexTodoToEdit(todoArr.indexOf(todoToEdit));
+    setNewTodo(todoToEdit);
+  };
+
+  const editTodo = () => {
+    setTodoArr((prev) => {
+      prev[indexTodoToEdit] = newTodo;
+      return prev;
+    })
+    setIndexTodoToEdit(-1);
+    setNewTodo('');
+  };
+
+  const cancel = () => {
+    setNewTodo('');
+    setIndexTodoToEdit(-1);
+  };
+
   return (
     <div className="App">
       <h1>Todo App!</h1>
       <div>
         <input
+          className='todo-input'
           type="text"
           onKeyDown={handleKeyPress}
           name="newTodo"
           id="newTodo"
           value={newTodo}
+          placeholder='Type a task'
           onChange={(event) => setNewTodo(event.target.value) }
         />
-        <button onClick={ saveNewTodo }>Adicionar Tarefa</button>
+        {(indexTodoToEdit !== -1) ? (
+          <>
+            <button onClick={ editTodo }>SEND EDIT</button>
+            <button className='cancel' onClick={ cancel }> CANCEL</button>
+          </>
+        ):(
+          <button onClick={ saveNewTodo }>Add Todo</button>
+        )}
       </div>
       <div className='list'>
         <ul>
@@ -59,8 +88,11 @@ function App() {
               return(
                 <div key={el}>
                   <li>{el}</li>
-                  <button className='list-button' type='button' onClick={() => deleteTodo(el)}>
+                  <button className='list-delete-button' type='button' onClick={() => deleteTodo(el)}>
                     DELETE
+                  </button>
+                  <button className='list-edit-button' type='button' onClick={() => startEditingTodo(el)}>
+                    EDIT
                   </button>
                 </div>
              )
