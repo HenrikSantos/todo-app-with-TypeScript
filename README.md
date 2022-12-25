@@ -1,5 +1,6 @@
 # PROJETO Trivia!
 Projeto pessoal para aprender a usar React com TypeScript através do VITE, é o simples e famoso todo app, (lista de tarefas).
+
 Link: https://todo-app-with-typescript-one.vercel.app/
 
 ## Habilidades desevolvidas:
