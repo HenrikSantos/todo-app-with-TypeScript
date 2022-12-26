@@ -80,4 +80,15 @@ li {
 
 .cancel {
   background-color: yellow;
+  color: black;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+li {
+  display: block;
+  user-select: none;
+  cursor: pointer;
 }

@@ -3,6 +3,7 @@ import './App.css';
 
 function App() {
   const [todoArr, setTodoArr] = useState(['acordar', 'Comer']);
+  const [completedTodos, setCompletedTodos] = useState(['Acordar']);
   const [newTodo, setNewTodo] = useState('');
   const [indexTodoToEdit, setIndexTodoToEdit] = useState(-1);
 
@@ -62,6 +63,14 @@ function App() {
     setIndexTodoToEdit(-1);
   };
 
+  const setTodoHasCompleted = (taskName: string) => {
+    if (completedTodos.includes(taskName)) {
+      setCompletedTodos((prev) => prev.filter((el) => el !== taskName));
+      return;
+    }
+    setCompletedTodos((prev) => [...prev, taskName]);
+  };
+
   return (
     <>
       <div className="App">
@@ -91,15 +100,17 @@ function App() {
             {
               todoArr.map((el) => {
                 return (
-                  <div key={el}>
-                    <li>{el}</li>
-                    <button className='list-delete-button' type='button' onClick={() => deleteTodo(el)}>
-                      DELETE
-                    </button>
-                    <button className='list-edit-button' type='button' onClick={() => startEditingTodo(el)}>
-                      EDIT
-                    </button>
-                  </div>
+                  <>
+                    <li className={`${completedTodos.includes(el) ? 'completed' : ''}`} onDoubleClick={() => setTodoHasCompleted(el)}>
+                      {el}
+                      <button className='list-delete-button' disabled={completedTodos.includes(el)} type='button' onClick={() => deleteTodo(el)}>
+                        DELETE
+                      </button>
+                      <button className='list-edit-button' disabled={completedTodos.includes(el)} type='button' onClick={() => startEditingTodo(el)}>
+                        EDIT
+                      </button>
+                    </li>
+                  </>
                 )
               })
             }
