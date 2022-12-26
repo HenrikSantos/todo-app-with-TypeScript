@@ -10,16 +10,16 @@ function App() {
     const upperCased = todoArr.map((el) => el.charAt(0).toUpperCase() + el.slice(1));
     setTodoArr(upperCased);
   }, [])
-  
+
   const saveNewTodo = () => {
-    if(!newTodo) {
+    if (!newTodo) {
       window.alert('You need to type something');
       return;
     }
 
     const upperCasedTodo = newTodo.charAt(0).toUpperCase() + newTodo.slice(1)
 
-    if(todoArr.includes(upperCasedTodo)) {
+    if (todoArr.includes(upperCasedTodo)) {
       window.alert('You already placed this task!');
       return;
     }
@@ -29,9 +29,13 @@ function App() {
     setNewTodo('');
   };
 
-  const handleKeyPress = (event: React.KeyboardEvent) => {        
-    if (event.key === 'Enter') {
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (!(event.key === 'Enter')) return;
+    if (indexTodoToEdit === -1) {
       saveNewTodo()
+    }
+    if (indexTodoToEdit !== -1) {
+      editTodo()
     }
   }
 
@@ -46,7 +50,7 @@ function App() {
 
   const editTodo = () => {
     setTodoArr((prev) => {
-      prev[indexTodoToEdit] = newTodo;
+      prev[indexTodoToEdit] = newTodo.charAt(0).toUpperCase() + newTodo.slice(1);
       return prev;
     })
     setIndexTodoToEdit(-1);
@@ -59,48 +63,50 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Todo App!</h1>
-      <div>
-        <input
-          className='todo-input'
-          type="text"
-          onKeyDown={handleKeyPress}
-          name="newTodo"
-          id="newTodo"
-          value={newTodo}
-          placeholder='Type a task'
-          onChange={(event) => setNewTodo(event.target.value) }
-        />
-        {(indexTodoToEdit !== -1) ? (
-          <>
-            <button onClick={ editTodo }>SEND EDIT</button>
-            <button className='cancel' onClick={ cancel }> CANCEL</button>
-          </>
-        ):(
-          <button onClick={ saveNewTodo }>Add Todo</button>
-        )}
+    <>
+      <div className="App">
+        <h1>Todo App!</h1>
+        <div>
+          <input
+            className='todo-input'
+            type="text"
+            onKeyDown={handleKeyPress}
+            name="newTodo"
+            id="newTodo"
+            value={newTodo}
+            placeholder='Type a task'
+            onChange={(event) => setNewTodo(event.target.value)}
+          />
+          {(indexTodoToEdit !== -1) ? (
+            <>
+              <button onClick={editTodo}>SEND EDIT</button>
+              <button className='cancel' onClick={cancel}> CANCEL</button>
+            </>
+          ) : (
+            <button onClick={saveNewTodo}>Add Todo</button>
+          )}
+        </div>
+        <div className='list'>
+          <ul>
+            {
+              todoArr.map((el) => {
+                return (
+                  <div key={el}>
+                    <li>{el}</li>
+                    <button className='list-delete-button' type='button' onClick={() => deleteTodo(el)}>
+                      DELETE
+                    </button>
+                    <button className='list-edit-button' type='button' onClick={() => startEditingTodo(el)}>
+                      EDIT
+                    </button>
+                  </div>
+                )
+              })
+            }
+          </ul>
+        </div>
       </div>
-      <div className='list'>
-        <ul>
-          {
-            todoArr.map((el) => {
-              return(
-                <div key={el}>
-                  <li>{el}</li>
-                  <button className='list-delete-button' type='button' onClick={() => deleteTodo(el)}>
-                    DELETE
-                  </button>
-                  <button className='list-edit-button' type='button' onClick={() => startEditingTodo(el)}>
-                    EDIT
-                  </button>
-                </div>
-             )
-            })
-          }
-        </ul>
-      </div>
-    </div>
+    </>
   )
 }
 
