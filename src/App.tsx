@@ -101,12 +101,12 @@ function App() {
               todoArr.map((el) => {
                 return (
                   <>
-                    <li className={`${completedTodos.includes(el) ? 'completed' : ''}`} onDoubleClick={() => setTodoHasCompleted(el)}>
-                      {el}
-                      <button className='list-delete-button' disabled={completedTodos.includes(el)} type='button' onClick={() => deleteTodo(el)}>
+                    <li className={`${completedTodos.includes(el) ? 'completed' : ''} row mt-2`} onDoubleClick={() => setTodoHasCompleted(el)}>
+                      <p className='col-3'>{el}</p>
+                      <button className='list-delete-button col-3' disabled={completedTodos.includes(el)} type='button' onClick={() => deleteTodo(el)}>
                         DELETE
                       </button>
-                      <button className='list-edit-button' disabled={completedTodos.includes(el)} type='button' onClick={() => startEditingTodo(el)}>
+                      <button className='list-edit-button col-3' disabled={completedTodos.includes(el)} type='button' onClick={() => startEditingTodo(el)}>
                         EDIT
                       </button>
                     </li>
