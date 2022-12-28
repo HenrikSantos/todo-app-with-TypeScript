@@ -101,8 +101,13 @@ function App() {
               todoArr.map((el) => {
                 return (
                   <>
-                    <li className={'row mt-2'} onDoubleClick={() => setTodoHasCompleted(el)}>
-                      <p className={`${completedTodos.includes(el) ? 'completed' : ''} col-3`}>{el}</p>
+                    <li className={'row mt-2'} >
+                      <div className={'col-4'}>
+                        <input type="checkbox" name={el} id={el} onClick={() => setTodoHasCompleted(el)}/>
+                        <label htmlFor={el} className={`${completedTodos.includes(el) ? 'completed' : ''} ms-2`}>
+                          {el}
+                        </label>
+                      </div>
                       <button className='list-delete-button col-3' disabled={completedTodos.includes(el)} type='button' onClick={() => deleteTodo(el)}>
                         DELETE
                       </button>
