@@ -2,15 +2,25 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-  const [todoArr, setTodoArr] = useState(['acordar', 'Comer']);
-  const [completedTodos, setCompletedTodos] = useState(['Acordar']);
+  const [todoArr, setTodoArr] = useState<Array<string>>([]);
+  const [completedTodos, setCompletedTodos] = useState<Array<string>>([]);
   const [newTodo, setNewTodo] = useState('');
   const [indexTodoToEdit, setIndexTodoToEdit] = useState(-1);
 
   useEffect(() => {
-    const upperCased = todoArr.map((el) => el.charAt(0).toUpperCase() + el.slice(1));
-    setTodoArr(upperCased);
-  }, [])
+    const tasks = localStorage.getItem('todoArr') || '[]';
+    const completedTasks = localStorage.getItem('completedTodos') || '[]';
+    if (JSON.parse(tasks)?.length > 0) setTodoArr(JSON.parse(tasks));
+    if (JSON.parse(completedTasks)?.length > 0) setCompletedTodos(JSON.parse(completedTasks));
+  }, []);
+
+  useEffect(() => {
+    if (todoArr.length > 0) localStorage.setItem('todoArr', JSON.stringify(todoArr));
+  }, [todoArr]);
+
+  useEffect(() => {
+    if (completedTodos.length > 0) localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
+  }, [completedTodos]);
 
   const saveNewTodo = () => {
     if (!newTodo) {
@@ -26,7 +36,7 @@ function App() {
     }
 
     const newArr = [...todoArr, upperCasedTodo]
-    setTodoArr(newArr);
+    setTodoArr(() => newArr);
     setNewTodo('');
   };
 
@@ -84,6 +94,7 @@ function App() {
             id="newTodo"
             value={newTodo}
             placeholder='Type a task'
+            autoComplete="off"
             onChange={(event) => setNewTodo(event.target.value)}
           />
           {(indexTodoToEdit !== -1) ? (
@@ -95,32 +106,35 @@ function App() {
             <button onClick={saveNewTodo}>Add Todo</button>
           )}
         </div>
-        <div className='list'>
-          <ul>
-            {
-              todoArr.map((el) => {
-                return (
-                  <>
-                    <li className={'row mt-2'} >
-                      <div className={'col-4'}>
-                        <input type="checkbox" name={el} id={el} onClick={() => setTodoHasCompleted(el)}/>
-                        <label htmlFor={el} className={`${completedTodos.includes(el) ? 'completed' : ''} ms-2`}>
-                          {el}
-                        </label>
-                      </div>
-                      <button className='list-delete-button col-3' disabled={completedTodos.includes(el)} type='button' onClick={() => deleteTodo(el)}>
+      </div>
+      <div className='container'>
+        <ul className='row'>
+          {
+            todoArr.map((el) => {
+              return (
+                <>
+                  <li className={'row mt-2'} >
+                    <div className={'col-8'}>
+                      <input type="checkbox" name={el} id={el} onClick={() => setTodoHasCompleted(el)} checked={completedTodos.includes(el)} />
+                      <label htmlFor={el} className={`${completedTodos.includes(el) ? 'completed' : ''} ms-2`}>
+                        {el}
+                      </label>
+                    </div>
+                    <div className="col-10 row">
+                      <button className='list-delete-button col-5' type='button' onClick={() => deleteTodo(el)}>
                         DELETE
                       </button>
-                      <button className='list-edit-button col-3' disabled={completedTodos.includes(el)} type='button' onClick={() => startEditingTodo(el)}>
+                      <button className='list-edit-button col-5' disabled={completedTodos.includes(el)} type='button' onClick={() => startEditingTodo(el)}>
                         EDIT
-                      </button>
-                    </li>
-                  </>
-                )
-              })
-            }
-          </ul>
-        </div>
+                      </button> 
+                      {/* arrumando css */}
+                    </div>
+                  </li>
+                </>
+              )
+            })
+          }
+        </ul>
       </div>
     </>
   )
