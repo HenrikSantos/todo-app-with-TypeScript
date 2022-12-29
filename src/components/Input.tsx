@@ -33,19 +33,11 @@ function Input() {
     if (completedTodos) localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
   }, [completedTodos]);
 
-  // useEffect(() => {
-  //   if (todoArr.length > 0) localStorage.setItem('todoArr', JSON.stringify(todoArr));
-  // }, [todoArr]);
-
-  // useEffect(() => {
-  //   if (completedTodos.length > 0) localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
-  // }, [completedTodos]);
-
   return (
     <>
-      <div className="App">
-        <h1>Todo App!</h1>
-        <div>
+      <div className="container row justify-content-center">
+        <h1 className='col-12 text-center mx-auto'>Todo App!</h1>
+        <div className='col-12 text-center mx-auto'>
           <input
             className='todo-input'
             type="text"

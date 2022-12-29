@@ -2,10 +2,10 @@ import React, { useState, ReactNode } from 'react';
 import TodoContext from './TodoContext';
 
 interface IProps {
-  children : ReactNode;
+  children: ReactNode;
 }
 
-export default function ThemeProvider( { children }: IProps ) {
+export default function ThemeProvider({ children }: IProps) {
   const [todoArr, setTodoArr] = useState<Array<string>>([]);
   const [completedTodos, setCompletedTodos] = useState<Array<string>>([]);
   const [newTodo, setNewTodo] = useState('');
@@ -85,7 +85,8 @@ export default function ThemeProvider( { children }: IProps ) {
       editTodo,
       cancel,
       saveNewTodo,
-      setNewTodo}}>
+      setNewTodo
+    }}>
       {children}
     </TodoContext.Provider>
   );

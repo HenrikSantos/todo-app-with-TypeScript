@@ -6,7 +6,7 @@ import TodoProvider from './context/TodoProvider';
 function App() {
   return (
     <TodoProvider>
-      <Input/>
+      <Input />
     </TodoProvider>
   );
 }

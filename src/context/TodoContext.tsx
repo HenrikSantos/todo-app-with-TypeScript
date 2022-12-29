@@ -10,7 +10,7 @@ interface MyContext {
   setTodoHasCompleted?: (el: string) => void
   deleteTodo?: (el: string) => void
   startEditingTodo?: (el: string) => void
-  handleKeyPress?: (key : React.KeyboardEvent) => void
+  handleKeyPress?: (key: React.KeyboardEvent) => void
   editTodo?: () => void
   cancel?: () => void
   saveNewTodo?: () => void

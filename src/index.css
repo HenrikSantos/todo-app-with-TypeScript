@@ -15,6 +15,14 @@
   -webkit-text-size-adjust: 100%;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* align-content: flex-start; */
+  flex-wrap: nowrap;
+  margin-top: 30vh;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -25,11 +33,6 @@ a:hover {
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
   background-color: #242424 !important;
 }
 
@@ -98,9 +101,21 @@ li {
 li {
   display: block;
   user-select: none;
-  cursor: pointer;
 }
 
 label {
   color: white;
+  cursor: pointer;
+}
+
+.set-area {
+  cursor: pointer;
+}
+
+.check {
+  width: 15px;
+}
+
+.envolta {
+  width: 70vw;
 }
