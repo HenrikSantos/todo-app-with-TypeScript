@@ -17,8 +17,8 @@ function RenderTasks() {
           todoArr?.map((el) => {
             return (
               <li className={'row mt-3 justify-content-center'} key={el}>
-                <div className={'col-3 set-area'} onClick={() => setTodoHasCompleted?.(el)}>
-                  <input className="set-area check" type="checkbox" name={el} id={el} defaultChecked={completedTodos?.includes(el)} />
+                <div className={'col-3 set-area'} >
+                  <input className="set-area check" onClick={() => setTodoHasCompleted?.(el)} type="checkbox" name={el} id={el} checked={completedTodos?.includes(el)} />
                   <label htmlFor={el} className={`${completedTodos?.includes(el) ? 'completed' : ''} ms-2`}>
                     {el}
                   </label>
