@@ -72,3 +72,13 @@ describe('testa se é possivel editar e deletar os elementos', () => {
   });
 });
 
+describe('testa se ao marcar o elemento como completo', () => {
+  it('line throuth', async () => {
+    const {debug} = render(<App />);
+    const input = screen.getByPlaceholderText(/type a task/i);
+    await userEvent.type(input, 'Levantar{enter}');
+    const firstTask = screen.getByText(/levantar/i);
+    await userEvent.click(firstTask);
+    expect(firstTask).toHaveClass('completed');
+  });
+});
