@@ -36,5 +36,19 @@ describe('testa funcionalidades', () => {
     await userEvent.clear(input);
     await userEvent.type(input, 'alterado{enter}');
     expect(screen.getByText(/alterado/i)).toBeInTheDocument();
+    localStorage.clear();
+  });
+  it('testa se é possivel deletar um elemento', async () => {
+    render(<App />);
+    const input = screen.getByPlaceholderText(/type a task/i);
+    await userEvent.type(input, 'Levantar{enter}');
+    const element = screen.getByText(/levantar/i);
+    const deleteBtn = screen.getByRole('button', {
+      name: /delete/i
+    });
+    expect(element).toBeInTheDocument();
+    await userEvent.click(deleteBtn);
+    expect(element).not.toBeInTheDocument();
   });
 });
+
