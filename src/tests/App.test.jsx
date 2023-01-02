@@ -23,7 +23,27 @@ describe('testa o input', () => {
   });
 });
 
-describe('testa funcionalidades', () => {
+describe('testa se é possivel editar e deletar os elementos', () => {
+  it('testa se é possivel cancelar edição', async () => {
+    render(<App />);
+    const input = screen.getByPlaceholderText(/type a task/i);
+    await userEvent.type(input, 'Levantar{enter}');
+    const elementBefore = screen.getByText(/levantar/i);
+    const editButtton = screen.getByRole('button', {
+      name: /edit/i
+    });
+    expect(elementBefore).toBeInTheDocument();
+    await userEvent.click(editButtton);
+    const sendEdit = screen.getByRole('button', {
+      name: /send edit/i
+    });
+    expect(sendEdit).toBeInTheDocument();
+    const cancelBtn = screen.getByRole('button', {
+      name: /cancel/i
+    });
+    await userEvent.click(cancelBtn);
+    expect(sendEdit).not.toBeInTheDocument();
+  });
   it('testa se é possivel editar um elemento', async () => {
     render(<App />);
     const input = screen.getByRole('textbox');
