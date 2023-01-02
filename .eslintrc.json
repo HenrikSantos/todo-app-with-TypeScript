@@ -1,5 +1,6 @@
 {
     "env": {
+        "jest/globals": true,
         "browser": true,
         "es2021": true
     },
@@ -17,8 +18,16 @@
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "jest"
     ],
     "rules": {
-    }
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"]
+      }
 }

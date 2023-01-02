@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import RenderTasks from './RenderTasks';
-import TodoContext from "../context/TodoContext";
+import TodoContext from '../context/TodoContext';
 
 function Input() {
   const theme = useContext(TodoContext);
@@ -61,7 +61,7 @@ function Input() {
       </div>
       <RenderTasks />
     </>
-  )
+  );
 }
 
 export default Input;

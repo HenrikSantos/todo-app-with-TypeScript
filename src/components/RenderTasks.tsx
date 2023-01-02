@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import TodoContext from "../context/TodoContext";
+import React, { useContext } from 'react';
+import TodoContext from '../context/TodoContext';
 
 function RenderTasks() {
   const theme = useContext(TodoContext);
@@ -32,7 +32,7 @@ function RenderTasks() {
                   </button>
                 </div>
               </li>
-            )
+            );
           })
         }
       </ul>

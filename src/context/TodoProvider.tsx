@@ -17,14 +17,14 @@ export default function ThemeProvider({ children }: IProps) {
       return;
     }
 
-    const upperCasedTodo = newTodo.charAt(0).toUpperCase() + newTodo.slice(1)
+    const upperCasedTodo = newTodo.charAt(0).toUpperCase() + newTodo.slice(1);
 
     if (todoArr.includes(upperCasedTodo)) {
       window.alert('You already placed this task!');
       return;
     }
 
-    const newArr = [...todoArr, upperCasedTodo]
+    const newArr = [...todoArr, upperCasedTodo];
     setTodoArr(() => newArr);
     setNewTodo('');
   };
@@ -32,12 +32,12 @@ export default function ThemeProvider({ children }: IProps) {
   const handleKeyPress = (event: React.KeyboardEvent) => {
     if (!(event.key === 'Enter')) return;
     if (indexTodoToEdit === -1) {
-      saveNewTodo()
+      saveNewTodo();
     }
     if (indexTodoToEdit !== -1) {
-      editTodo()
+      editTodo();
     }
-  }
+  };
 
   const setTodoHasCompleted = (taskName: string) => {
     if (completedTodos.includes(taskName)) {
@@ -55,7 +55,7 @@ export default function ThemeProvider({ children }: IProps) {
     setTodoArr((prev) => {
       prev[indexTodoToEdit] = newTodo.charAt(0).toUpperCase() + newTodo.slice(1);
       return prev;
-    })
+    });
     setIndexTodoToEdit(-1);
     setNewTodo('');
   };
